@@ -1,0 +1,26 @@
+version: '3.9'
+
+services:
+
+  postgres:
+    image: postgres
+    restart: always
+    ports:
+      - 5432:5432
+    volumes:
+      - .:/docker-entrypoint-initdb.d/
+    environment:
+      POSTGRES_PASSWORD: password
+    networks:
+      - user-service-net
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8085:8080
+    networks:
+      - user-service-net
+
+networks:
+  user-service-net:
